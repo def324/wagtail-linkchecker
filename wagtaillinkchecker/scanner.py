@@ -4,7 +4,7 @@ except ImportError:
     import httplib as client
 
 import requests
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from wagtaillinkchecker import HTTP_STATUS_CODES
 
 

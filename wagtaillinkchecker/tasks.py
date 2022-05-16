@@ -2,14 +2,14 @@ from celery import shared_task
 from wagtaillinkchecker.scanner import get_url, clean_url
 from wagtaillinkchecker.models import ScanLink
 from bs4 import BeautifulSoup
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django.db.utils import IntegrityError
 from django.utils import timezone
 
 
 @shared_task
-def check_link(link_pk, run_sync=False, verbosity=1, ):
+def check_link(link_pk, run_sync=False, verbosity=1):
     link = ScanLink.objects.get(pk=link_pk)
     site = link.scan.site
     url = get_url(link.url, link.page, site)

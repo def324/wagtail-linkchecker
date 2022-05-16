@@ -6,12 +6,8 @@ from django.template.loader import render_to_string
 
 from wagtaillinkchecker.scanner import broken_link_scan
 from wagtaillinkchecker.models import ScanLink
-from wagtaillinkchecker import utils
 
-if utils.is_wagtail_version_more_than_equal_to_2_0():
-    from wagtail.core.models import PageRevision, Site
-else:
-    from wagtail.wagtailcore.models import PageRevision, Site
+from wagtail.core.models import PageRevision, Site
 
 
 class Command(BaseCommand):
