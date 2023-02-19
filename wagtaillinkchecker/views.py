@@ -18,7 +18,7 @@ from wagtaillinkchecker.scanner import broken_link_scan, get_celery_worker_statu
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (ObjectList,
                                          extract_panel_definitions_from_model_class)
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 
 @lru_cache()

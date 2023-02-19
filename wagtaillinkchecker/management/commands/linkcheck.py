@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from wagtaillinkchecker.scanner import broken_link_scan
 from wagtaillinkchecker.models import ScanLink
 
-from wagtail.core.models import PageRevision, Site
+from wagtail.models import PageRevision, Site
 
 
 class Command(BaseCommand):
