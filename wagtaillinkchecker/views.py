@@ -24,7 +24,7 @@ from wagtail.core.models import Site
 @lru_cache()
 def get_edit_handler(model):
     panels = extract_panel_definitions_from_model_class(model, ['site'])
-    return ObjectList(panels).bind_to(model=model)
+    return ObjectList(panels).bind_to_model(model)
 
 
 def scan(request, scan_pk):
@@ -84,12 +84,9 @@ def settings(request):
                 'The form could not be saved due to validation errors'))
     else:
         form = SitePreferencesForm(instance=instance)
-        if utils.is_wagtail_version_more_than_equal_to_2_5():
-            edit_handler = object_list.bind_to(
-                instance=SitePreferences, form=form, request=request)
-        else:
-            edit_handler = object_list.bind_to_instance(
-                instance=SitePreferences, form=form, request=request)
+        edit_handler = object_list.bind_to(
+            instance=SitePreferences, form=form, request=request)
+
 
     return render(request, 'wagtaillinkchecker/settings.html', {
         'form': form,
