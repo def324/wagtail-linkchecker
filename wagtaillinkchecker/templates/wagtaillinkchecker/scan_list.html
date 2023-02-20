@@ -27,6 +27,7 @@
 					{% if scan.is_finished %}
 					{% blocktrans %}Completed{% endblocktrans %}
 					{% else %}
+					<i>{% blocktrans %}Not Completed{% endblocktrans %}</i><br/>
 					{% blocktrans with links=scan.links.count %}{{links}} links found{% endblocktrans %} <br />
 					{% blocktrans with crawled_links=scan.links.crawled_links.count %}{{crawled_links}} links crawled{% endblocktrans %}<br />
 					{% blocktrans with broken_links=scan.links.broken_links.count %}{{broken_links}} broken links found{% endblocktrans %} <br />
