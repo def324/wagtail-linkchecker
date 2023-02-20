@@ -16,7 +16,7 @@ from wagtaillinkchecker.pagination import paginate
 from wagtaillinkchecker.scanner import broken_link_scan, get_celery_worker_status
 
 from wagtail.admin import messages
-from wagtail.admin.edit_handlers import (ObjectList,
+from wagtail.admin.panels import (ObjectList,
                                          extract_panel_definitions_from_model_class)
 from wagtail.models import Site
 

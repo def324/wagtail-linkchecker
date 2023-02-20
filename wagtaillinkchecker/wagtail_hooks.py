@@ -8,7 +8,7 @@ from django.urls import path, include
 from wagtaillinkchecker import urls
 
 from wagtail.admin.menu import MenuItem
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 @hooks.register('register_admin_urls')
