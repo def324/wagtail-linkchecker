@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from django.db.utils import IntegrityError
 from django.utils import timezone
 
+from urllib.parse import urlparse
+
 
 @shared_task
 def check_link(link_pk, run_sync=False, verbosity=1):
@@ -14,6 +16,11 @@ def check_link(link_pk, run_sync=False, verbosity=1):
     site = link.scan.site
     url = get_url(link.url, link.page, site)
     link.status_code = url.get('status_code')
+
+    parsed_uri = urlparse(link.page.full_url)
+    page_url_root = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+    parsed_uri = urlparse(link.url)
+    link_url_root = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
 
     if url['error']:
         link.broken = True
@@ -23,7 +30,9 @@ def check_link(link_pk, run_sync=False, verbosity=1):
         link.invalid = True
         link.error_text = _('Link was invalid')
 
-    elif link.page.full_url == link.url:
+    # Check that base URL is actualy our page, otherwise it would scan pages that are not ours
+    # This also helps with internationalization compatibility
+    elif page_url_root == link_url_root:
         soup = BeautifulSoup(url['response'].content, 'html5lib')
         anchors = soup.find_all('a')
         images = soup.find_all('img')
